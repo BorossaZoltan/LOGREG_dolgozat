@@ -5,36 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:id="@+id/et_email"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
         android:hint="Felhasználónév"
-        android:id="@+id/et_user_input"
-    />
+        android:id="@+id/et_user"
+        />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:inputType="textPassword"
         android:hint="Jelszó"
-        android:id="@+id/et_password_input"
-    />
-
-    <Button
-        android:id="@+id/btn_bejelentkezes"
+        android:id="@+id/et_password"
+        />
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bejelentkezés"
-
-     />
-
+        android:textSize="25sp"
+        android:hint="Teljes név"
+        android:id="@+id/et_fullName"
+        />
     <Button
-        android:id="@+id/btn_regisztracio"
+        android:id="@+id/btn_regisztracio_elkuldese"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Regisztráció"
-     />
+
+        />
+
+    <Button
+        android:id="@+id/btn_vissza_bejelentkezeshez"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vissza"
+        />
+
 </LinearLayout>

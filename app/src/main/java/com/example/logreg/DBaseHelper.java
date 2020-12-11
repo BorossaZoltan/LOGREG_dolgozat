@@ -1,6 +1,7 @@
 package com.example.logreg;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -35,5 +36,16 @@ public class DBaseHelper extends SQLiteOpenHelper {
         String sql = "DROP TABLE IF EXISTS " + FELHASZNALO_TABLE;
         db.execSQL(sql);
         onCreate(db);
+    }
+
+    public Cursor adatLekerdezes(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("SELECT * FROM "+FELHASZNALO_TABLE, null);
+    }
+
+    public boolean emailEllenorzes(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + FELHASZNALO_TABLE + " WHERE " + COL_EMAIL + " = ?", new String[]{email});
+        return result.getCount() == 1;
     }
 }
