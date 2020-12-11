@@ -44,6 +44,11 @@ public class DBaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM "+FELHASZNALO_TABLE,null);
     }
 
+    public Cursor belepo(String nev, String jelszo){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("SELECT "+ COL_TELJESNEV +" FROM "+FELHASZNALO_TABLE +" WHERE (" + COL_FELHNEV + " = ? OR " +COL_EMAIL + " = ?) AND " + COL_JELSZO +" = ?", new String[]{nev, nev, jelszo});
+    }
+
     public boolean emailEllenorzes(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM " + FELHASZNALO_TABLE + " WHERE " + COL_EMAIL + " = ?", new String[]{email});

@@ -2,7 +2,9 @@ package com.example.logreg;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnBejelentkezes, btnRegisztracio;
     EditText etFelhasznaloNev, etJelszo;
     DBaseHelper adatbazis;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         else{
-
+            editor.putString("nev",nev);
+            editor.putString("jelszo",jelszo);
+            editor.commit();
             Intent logActivity = new Intent(MainActivity.this, LoggedInActivity.class);
             startActivity(logActivity);
             finish();
@@ -68,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         etFelhasznaloNev = findViewById(R.id.et_user_input);
         etJelszo = findViewById(R.id.et_password_input);
         adatbazis = new DBaseHelper(MainActivity.this);
+        sharedPref = getSharedPreferences("adatok", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
 
     }
 }
