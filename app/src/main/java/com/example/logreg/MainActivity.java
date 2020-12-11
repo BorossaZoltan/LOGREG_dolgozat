@@ -39,20 +39,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void adatlekerdezes() {
+
         String nev = etFelhasznaloNev.getText().toString().trim();
         String jelszo = etJelszo.getText().toString().trim();
 
+
         Cursor adatok = adatbazis.adatLekerdezes();
+
         if (nev.isEmpty() || jelszo.isEmpty()){
             Toast.makeText(this, "HIBA, üresen hagyott mezők!", Toast.LENGTH_SHORT).show();
             return;
         }
-        else if (adatok.getCount() == 0){
+        else if (adatok.getCount() == 0 || !adatbazis.felhasznaloEllenorzes(nev, jelszo)){
             Toast.makeText(this, "HIBA, nincs ilyen felhasználó!", Toast.LENGTH_SHORT).show();
             return;
         }
         else{
-            //TODO: ha talál ilyen embert
+
+            Intent logActivity = new Intent(MainActivity.this, LoggedInActivity.class);
+            startActivity(logActivity);
+            finish();
         }
     }
 

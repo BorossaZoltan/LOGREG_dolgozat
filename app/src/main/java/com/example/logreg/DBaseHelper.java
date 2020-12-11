@@ -1,5 +1,6 @@
 package com.example.logreg;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -40,12 +41,31 @@ public class DBaseHelper extends SQLiteOpenHelper {
 
     public Cursor adatLekerdezes(){
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.rawQuery("SELECT * FROM "+FELHASZNALO_TABLE, null);
+        return db.rawQuery("SELECT * FROM "+FELHASZNALO_TABLE,null);
     }
 
     public boolean emailEllenorzes(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM " + FELHASZNALO_TABLE + " WHERE " + COL_EMAIL + " = ?", new String[]{email});
         return result.getCount() == 1;
+    }
+
+    public boolean felhasznaloEllenorzes(String felhasznalo, String jelszo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM " + FELHASZNALO_TABLE + " WHERE (" + COL_FELHNEV + " = ? OR " +COL_EMAIL + " = ?) AND " + COL_JELSZO +" = ?", new String[]{felhasznalo, felhasznalo, jelszo});
+        return result.getCount() == 1;
+    }
+
+
+
+    public boolean adatRogzites(String email, String fnev, String jelszo, String tnev) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_EMAIL, email);
+        values.put(COL_FELHNEV, fnev);
+        values.put(COL_JELSZO, jelszo);
+        values.put(COL_TELJESNEV, tnev);
+        return db.insert(FELHASZNALO_TABLE, null, values) != -1;
+
     }
 }

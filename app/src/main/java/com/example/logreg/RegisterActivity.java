@@ -29,6 +29,12 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btnRegisztracio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adatLekerdez();
+            }
+        });
     }
 
     private void adatLekerdez() {
@@ -49,7 +55,10 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
         else{
-            //TODO: regisztrálás
+            adatbazis.adatRogzites(email,nev, jelszo, teljesNev);
+            Toast.makeText(this, "Sikeres regisztráció!", Toast.LENGTH_SHORT).show();
+            return;
+
         }
     }
 

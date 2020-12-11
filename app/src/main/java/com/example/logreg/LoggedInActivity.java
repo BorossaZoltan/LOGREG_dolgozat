@@ -21,14 +21,16 @@ public class LoggedInActivity extends AppCompatActivity {
         init();
         StringBuilder builder = new StringBuilder();
         Cursor adatok = adatbazis.adatLekerdezes();
-        builder.append(adatok.getString(5));
+        while(adatok.moveToNext()){
+            builder.append("Üdvözöljük,  ").append(adatok.getString(4));
+        }
         tv_userKiir.setText(builder.toString());
 
         btn_Vissza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent vissza = new Intent(LoggedInActivity.this, MainActivity.class);
-                startActivity(vissza);
+                Intent visszaMainre = new Intent(LoggedInActivity.this, MainActivity.class);
+                startActivity(visszaMainre);
                 finish();
             }
         });
